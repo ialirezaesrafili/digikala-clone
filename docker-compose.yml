@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  mariadb:
+    image: mariadb
+    container_name: mariadb_container
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: root
+      MYSQL_PASSWORD: rootpassword
+    ports:
+      - "3306:3306" # Mapping the container port to the host port
+    volumes:
+      - mariadb_data:/var/lib/mysql # Persist data
+
+volumes:
+  mariadb_data:
+    driver: local
