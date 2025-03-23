@@ -1,5 +1,5 @@
 const express = require('express');
-const squelizeDB = require('./config/squelize.config');
+const { initDataBase } = require('./config/models.initial');
 require('dotenv').config();
 
 
@@ -8,11 +8,12 @@ async function main() {
     const app = express();
     const port = process.env.PORT || 3000;
 
-    await squelizeDB.sync({ force: true });
+    
     // Middleware to parse incoming requests
     app.use(express.json());
     app.use(express.urlencoded({ extended: true })); 
-    
+
+    await initDataBase();
     // 404 Route Handling
     app.use((req, res, next) => {
         return res.status(404).json({
